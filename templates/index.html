@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Home</title>
+    <link rel="stylesheet" href="/static/index.ac0c7b2c.css">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body id="mainbody">
+    <!-- Start of Nav -->
+    <div class="bg-[#f8f8f8] pb-2">
+        <nav
+            class="navbar container mx-auto px-0.5 sm:px-1 py-2 flex flex-row justify-between items-center space-x-1 sm:space-x-2 md:space-x-5">
+            <div class="left flex-row flex space-x-2 items-center">
+                <div>
+                    <img src="/static/stock-market.d9663360.png" alt="" href="/"
+                        class="hidden md:block h-12 w-16 cursor-pointer">
+                </div>
+                <div class="text-sm sm:text-md md:text-lg lg:text-2xl hover:text-blue-700 cursor-pointer font-bold">
+                    <a href="/">Stock&nbsp;Info</a>
+                </div>
+            </div>
+            <div class="nav-center flex flex-row space-x-3 md:space-x-10 items-center">
+                <div class="text-sm sm:text-sm md:text-md lg:text-xl hover:text-blue-700 cursor-pointer font-semibold">
+                    <a href="/">Home</a>
+                </div>
+                <div>
+                    <span
+                        class="hidden md:block sm:text-sm md:text-md lg:text-xl hover:text-blue-700 cursor-pointer font-semibold"><a
+                            href="/nse">NSE&nbsp;Indices</a></span>
+                    <span class="md:hidden text-sm hover:text-blue-700 cursor-pointer font-semibold"><a
+                            href="/nse">Indices</a></span>
+                </div>
+                <div>
+                    <span
+                        class="hidden md:block sm:text-sm md:text-md lg:text-xl hover:text-blue-700 cursor-pointer font-semibold"><a
+                            href="/news">Financial&nbsp;News</a></span>
+                    <span class="md:hidden text-sm hover:text-blue-700 cursor-pointer font-semibold"><a
+                            href="/news">News</a></span>
+                </div>
+            </div>
+            <div class="hidden lg:block">
+                <form action="/" method="POST" autocomplete="off">
+                    {% csrf_token %}
+                    <div
+                        class="right flex flex-row bg-white pt-1 pb-1 pl-2 pr-2 space-x-2 border border-black rounded-lg autocomplete items-center">
+                        <input type="search" name="stock_symbol" id="myInput" placeholder="Search for Stocks"
+                            class="border-0 outline-none">
+                        <button type="submit"
+                            class="border border-white hover:border hover:border-white hover:bg-slate-800 hover:rounded-[50%] p-1 lg:p-2 hover:text-white duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </nav>
+        <div class="lg:hidden">
+            <form action="/" method="POST" autocomplete="off">
+                {% csrf_token %}
+                <div class="flex flex-row bg-white pt-1 pb-1 pl-2 pr-2 space-x-2 border border-black rounded-lg autocomplete items-center justify-between" style="padding-right: 15px;padding-left: 15px;margin-right:15px;margin-left:15px;">
+                    <input type="search" name="stock_symbol" id="myInput1" placeholder="Search for Stocks"
+                            class="border-0 outline-none">
+                        <button type="submit"
+                            class="border border-white hover:border hover:border-white hover:bg-slate-800 hover:rounded-[50%] p-1 lg:p-2 hover:text-white duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- End of Nav -->
+    <div
+        class="niftysection w-10/12 border-2 border-black drop-shadow shadow shadow-black mx-auto my-10 p-2 py-4 rounded-lg">
+        <div class="flex flex-col">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-5">
+                <div class="text-5xl hover:bg-slate-500 hover:text-white cursor-pointer rounded-md p-2 duration-300">
+                    NIFTY 50
+                </div>
+                <div class="flex flex-col xs:flex-row xs:space-x-0.5">
+                    <div>
+                        Updated&nbsp;at: {{nifty_50.date}}
+                    </div>
+                    <div>
+                        {{nifty_50.time}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4 mx-auto w-11/12 p-3">
+            <div class="topitem border-2 bg-white rounded-xl flex flex-col shadow-sm shadow-black">
+                <div class="text-center text-2xl xs:text-3xl sm:text-4xl md:text-4xl lg:text-4xl font-bold">
+                    Current
+                </div>
+                <br>
+                <div class="flex flex-row justify-between px-1 items-center">
+                    <div class="text-2xl xs:text-3xl sm:text-4xl md:text-4xl lg:text-4xl font-semibold">
+                        {{nifty_50.price}}
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="h-10 w-10 sm:h-12 sm:w-12 md:h-10 md:w-10 lg:h-10 lg:w-10 xl:h-11 xl:w-11 animate-bounce"
+                            viewBox="0 0 20 20" fill="#137333" id="nifty_50_up_arrow">
+                            <path fill-rule="evenodd"
+                                d="M4.293 15.707a1 1 0 010-1.414l5-5a1 1 0 011.414 0l5 5a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414 0zm0-6a1 1 0 010-1.414l5-5a1 1 0 011.414 0l5 5a1 1 0 01-1.414 1.414L10 5.414 5.707 9.707a1 1 0 01-1.414 0z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="h-10 w-10 sm:h-12 sm:w-12 md:h-10 md:w-10 lg:h-10 lg:w-10 xl:h-11 xl:w-11 animate-bounce"
+                            viewBox="0 0 20 20" fill="#a50e0e" id="nifty_50_down_arrow">
+                            <path fill-rule="evenodd"
+                                d="M15.707 4.293a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-5-5a1 1 0 011.414-1.414L10 8.586l4.293-4.293a1 1 0 011.414 0zm0 6a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-5-5a1 1 0 111.414-1.414L10 14.586l4.293-4.293a1 1 0 011.414 0z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="flex flex-row justify-between px-1 py-1 items-center">
+                    <div class="sm:text-2xl lg:text-xl xl:text-2xl bg-[{{nifty_50.background}}] rounded-lg p-1 text-[{{nifty_50.text}}]"
+                        id="nifty_50_change">
+                        {{nifty_50.change}}
+                    </div>
+                    <div
+                        class="sm:text-2xl lg:text-xl xl:text-2xl bg-[{{nifty_50.background}}] rounded-lg p-1 text-[{{nifty_50.text}}]">
+                        {{nifty_50.per_change}}
+                    </div>
+                </div>
+            </div>
+            <div class="topitem border-2 bg-white rounded-xl flex flex-col shadow-sm shadow-black items-center">
+                <div class="text-center text-2xl xs:text-3xl sm:text-5xl md:text-6xl lg:text-3xl font-bold ">
+                    Open
+                </div>
+                <br>
+                <div class="text-2xl xs:text-3xl sm:text-4xl md:text-4xl lg:text-4xl font-semibold">
+                    {{nifty_50.open}}
+                </div>
+            </div>
+            <div class="topitem border-2 bg-white rounded-xl flex flex-col shadow-sm shadow-black items-center">
+                <div
+                    class="text-center text-2xl xs:text-3xl sm:text-5xl md:text-6xl lg:text-3xl font-bold text-[#137333]">
+                    High
+                </div>
+                <br>
+                <div class="text-2xl xs:text-3xl sm:text-4xl md:text-4xl lg:text-4xl font-semibold">
+                    {{nifty_50.high}}
+                </div>
+            </div>
+            <div class="topitem border-2 bg-white rounded-xl flex flex-col shadow-sm shadow-black items-center">
+                <div
+                    class="text-center text-2xl xs:text-3xl sm:text-5xl md:text-6xl lg:text-3xl font-bold text-[#a50e0e]">
+                    Low
+                </div>
+                <br>
+                <div class="text-2xl xs:text-3xl sm:text-4xl md:text-4xl lg:text-4xl font-semibold">
+                    {{nifty_50.low}}
+                </div>
+            </div>
+        </div>
+        <a href="/indices/NIFTY 50">
+        <div class="flex flex-row titems text-blue-700 items-center space-x-2 justify-end cursor-pointer">
+            <div class="text-sm xs:text-base sm:text-md md:text-lg">More Info</div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
+            </svg>
+        </div>
+    </div>
+</a>
+    <div class="topindices w-10/12 my-5 mx-auto">
+        <div class="flex flex-row justify-between items-center">
+            <div class="titems text-md xs:text-lg sm:text-2xl md:text-4xl font-bold tracking-wide">Top NSE Indices
+            </div>
+            <div class="flex flex-row titems text-blue-700 items-center space-x-2 cursor-pointer">
+                <div class="text-sm xs:text-base sm:text-md md:text-lg"><a href="/nse">View All</a></div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M13 5l7 7-7 7M5 5l7 7-7 7" />
+                </svg>
+            </div>
+        </div>
+    </div>
+    <div class="bg-[#4a4a4a] py-3">
+        <a href="indices/NIFTY IT">
+        <div
+            class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4 mx-auto w-11/12 p-3 px-10 sm:px-14 md:px-16 lg:px-20">
+            <div
+                class="topitem border-2 bg-white rounded-xl flex flex-col drop-shadow-2xl shadow-lg shadow-black space-y-2 py-1 px-2 cursor-pointer hover:scale-110 md:hover:scale-105 lg:hover:scale-110 transition duration-300">
+                <div class="text-center text-2xl xs:text-3xl sm:text-5xl md:text-6xl lg:text-3xl font-bold">
+                    NIFTY&nbsp;IT
+                </div>
+                <br>
+                <div class="flex flex-row justify-between px-1 items-center">
+                    <div class="text-2xl xs:text-3xl sm:text-4xl md:text-4xl lg:text-4xl font-semibold">
+                        {{nifty_it.price}}
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="h-10 w-10 sm:h-12 sm:w-12 md:h-10 md:w-10 lg:h-10 lg:w-10 xl:h-11 xl:w-11"
+                            viewBox="0 0 20 20" fill="#137333" id="nifty_it_up_arrow">
+                            <path fill-rule="evenodd"
+                                d="M4.293 15.707a1 1 0 010-1.414l5-5a1 1 0 011.414 0l5 5a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414 0zm0-6a1 1 0 010-1.414l5-5a1 1 0 011.414 0l5 5a1 1 0 01-1.414 1.414L10 5.414 5.707 9.707a1 1 0 01-1.414 0z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="h-10 w-10 sm:h-12 sm:w-12 md:h-10 md:w-10 lg:h-10 lg:w-10 xl:h-11 xl:w-11"
+                            viewBox="0 0 20 20" fill="#a50e0e" id="nifty_it_down_arrow">
+                            <path fill-rule="evenodd"
+                                d="M15.707 4.293a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-5-5a1 1 0 011.414-1.414L10 8.586l4.293-4.293a1 1 0 011.414 0zm0 6a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-5-5a1 1 0 111.414-1.414L10 14.586l4.293-4.293a1 1 0 011.414 0z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="flex flex-row justify-between px-1 py-1 items-center">
+                    <div class="sm:text-2xl lg:text-xl xl:text-2xl bg-[{{nifty_it.background}}] rounded-lg p-1 text-[{{nifty_it.text}}]"
+                        id="nifty_it_change">
+                        {{nifty_it.change}}
+                    </div>
+                    <div
+                        class="sm:text-2xl lg:text-xl xl:text-2xl bg-[{{nifty_it.background}}] rounded-lg p-1 text-[{{nifty_it.text}}]">
+                        {{nifty_it.per_change}}
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a href="indices/NIFTY BANK">
+            <div
+                class="topitem border-2 bg-white rounded-xl flex flex-col drop-shadow-2xl shadow-lg shadow-black space-y-2 py-1 px-2 cursor-pointer hover:scale-110 md:hover:scale-105 lg:hover:scale-110 transition duration-300">
+                <div class="text-center text-2xl xs:text-3xl sm:text-5xl md:text-6xl lg:text-3xl font-bold">
+                    NIFTY&nbsp;BANK
+                </div>
+                <br>
+                <div class="flex flex-row justify-between px-1 items-center">
+                    <div class="text-2xl xs:text-3xl sm:text-4xl md:text-4xl lg:text-4xl font-semibold">
+                        {{nifty_bank.price}}
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="h-10 w-10 sm:h-12 sm:w-12 md:h-10 md:w-10 lg:h-10 lg:w-10 xl:h-11 xl:w-11"
+                            viewBox="0 0 20 20" fill="#137333" id="nifty_bank_up_arrow">
+                            <path fill-rule="evenodd"
+                                d="M4.293 15.707a1 1 0 010-1.414l5-5a1 1 0 011.414 0l5 5a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414 0zm0-6a1 1 0 010-1.414l5-5a1 1 0 011.414 0l5 5a1 1 0 01-1.414 1.414L10 5.414 5.707 9.707a1 1 0 01-1.414 0z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="h-10 w-10 sm:h-12 sm:w-12 md:h-10 md:w-10 lg:h-10 lg:w-10 xl:h-11 xl:w-11"
+                            viewBox="0 0 20 20" fill="#a50e0e" id="nifty_bank_down_arrow">
+                            <path fill-rule="evenodd"
+                                d="M15.707 4.293a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-5-5a1 1 0 011.414-1.414L10 8.586l4.293-4.293a1 1 0 011.414 0zm0 6a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-5-5a1 1 0 111.414-1.414L10 14.586l4.293-4.293a1 1 0 011.414 0z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="flex flex-row justify-between px-1 py-1 items-center">
+                    <div class="sm:text-2xl lg:text-xl xl:text-2xl bg-[{{nifty_bank.background}}] rounded-lg p-1 text-[{{nifty_bank.text}}]"
+                        id="nifty_bank_change">
+                        {{nifty_bank.change}}
+                    </div>
+                    <div
+                        class="sm:text-2xl lg:text-xl xl:text-2xl bg-[{{nifty_bank.background}}] rounded-lg p-1 text-[{{nifty_bank.text}}]">
+                        {{nifty_bank.per_change}}
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a href="indices/NIFTY AUTO">
+            <div
+                class="topitem border-2 bg-white rounded-xl flex flex-col drop-shadow-2xl shadow-lg shadow-black space-y-2 py-1 px-2 cursor-pointer hover:scale-110 md:hover:scale-105 lg:hover:scale-110 transition duration-300">
+                <div class="text-center text-2xl xs:text-3xl sm:text-5xl md:text-6xl lg:text-3xl font-bold">
+                    NIFTY&nbsp;AUTO
+                </div>
+                <br>
+                <div class="flex flex-row justify-between px-1 items-center">
+                    <div class="text-2xl xs:text-3xl sm:text-4xl md:text-4xl lg:text-4xl font-semibold">
+                        {{nifty_auto.price}}
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="h-10 w-10 sm:h-12 sm:w-12 md:h-10 md:w-10 lg:h-10 lg:w-10 xl:h-11 xl:w-11"
+                            viewBox="0 0 20 20" fill="#137333" id="nifty_auto_up_arrow">
+                            <path fill-rule="evenodd"
+                                d="M4.293 15.707a1 1 0 010-1.414l5-5a1 1 0 011.414 0l5 5a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414 0zm0-6a1 1 0 010-1.414l5-5a1 1 0 011.414 0l5 5a1 1 0 01-1.414 1.414L10 5.414 5.707 9.707a1 1 0 01-1.414 0z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="h-10 w-10 sm:h-12 sm:w-12 md:h-10 md:w-10 lg:h-10 lg:w-10 xl:h-11 xl:w-11"
+                            viewBox="0 0 20 20" fill="#a50e0e" id="nifty_auto_down_arrow">
+                            <path fill-rule="evenodd"
+                                d="M15.707 4.293a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-5-5a1 1 0 011.414-1.414L10 8.586l4.293-4.293a1 1 0 011.414 0zm0 6a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-5-5a1 1 0 111.414-1.414L10 14.586l4.293-4.293a1 1 0 011.414 0z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="flex flex-row justify-between px-1 py-1 items-center">
+                    <div class="sm:text-2xl lg:text-xl xl:text-2xl bg-[{{nifty_auto.background}}] rounded-lg p-1 text-[{{nifty_auto.text}}]"
+                        id="nifty_auto_change">
+                        {{nifty_auto.change}}
+                    </div>
+                    <div
+                        class="sm:text-2xl lg:text-xl xl:text-2xl bg-[{{nifty_auto.background}}] rounded-lg p-1 text-[{{nifty_auto.text}}]">
+                        {{nifty_auto.per_change}}
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a href="indices/NIFTY FMCG">
+            <div
+                class="topitem border-2 bg-white rounded-xl flex flex-col drop-shadow-2xl shadow-lg shadow-black space-y-2 py-1 px-2 cursor-pointer hover:scale-110 md:hover:scale-105 lg:hover:scale-110 transition duration-300">
+                <div class="text-center text-2xl xs:text-3xl sm:text-5xl md:text-6xl lg:text-3xl font-bold">
+                    NIFTY&nbsp;FMCG
+                </div>
+                <br>
+                <div class="flex flex-row justify-between px-1 items-center">
+                    <div class="text-2xl xs:text-3xl sm:text-4xl md:text-4xl lg:text-4xl font-semibold">
+                        {{nifty_fmcg.price}}
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="h-10 w-10 sm:h-12 sm:w-12 md:h-10 md:w-10 lg:h-10 lg:w-10 xl:h-11 xl:w-11"
+                            viewBox="0 0 20 20" fill="#137333" id="nifty_fcmg_up_arrow">
+                            <path fill-rule="evenodd"
+                                d="M4.293 15.707a1 1 0 010-1.414l5-5a1 1 0 011.414 0l5 5a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414 0zm0-6a1 1 0 010-1.414l5-5a1 1 0 011.414 0l5 5a1 1 0 01-1.414 1.414L10 5.414 5.707 9.707a1 1 0 01-1.414 0z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="h-10 w-10 sm:h-12 sm:w-12 md:h-10 md:w-10 lg:h-10 lg:w-10 xl:h-11 xl:w-11"
+                            viewBox="0 0 20 20" fill="#a50e0e" id="nifty_fcmg_down_arrow">
+                            <path fill-rule="evenodd"
+                                d="M15.707 4.293a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-5-5a1 1 0 011.414-1.414L10 8.586l4.293-4.293a1 1 0 011.414 0zm0 6a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-5-5a1 1 0 111.414-1.414L10 14.586l4.293-4.293a1 1 0 011.414 0z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="flex flex-row justify-between px-1 py-1 items-center">
+                    <div class="sm:text-2xl lg:text-xl xl:text-2xl bg-[{{nifty_fmcg.background}}] rounded-lg p-1 text-[{{nifty_fmcg.text}}]"
+                        id="nifty_fmcg_change">
+                        {{nifty_fmcg.change}}
+                    </div>
+                    <div
+                        class="sm:text-2xl lg:text-xl xl:text-2xl bg-[{{nifty_fmcg.background}}] rounded-lg p-1 text-[{{nifty_fmcg.text}}]">
+                        {{nifty_fmcg.per_change}}
+                    </div>
+                </div>
+            </div>
+        </a>
+        </div>
+    </div>
+    <div class="topworst w-10/12 px-2 sm:px-0 sm:mx-auto my-3">
+        <div class="tab">
+            <button class="tablinks hover:bg-green-500 hover:text-black bg-opacity-100" id="top-gainers-btn">Top
+                Gainers</button>
+            <button class="tablinks-second hover:bg-[#a50e0e] hover:text-black" id="worst-losers-btn">Worst
+                Losers</button>
+        </div>
+
+        <!-- Tab content -->
+        <div id="top-gainers-tab" class="tabcontent border-t  border-t-[#4a4a4a]">
+            <table class="table-auto border-separate border border-slate-500 p-2 w-6/12 sm:w-8/12 sm:mx-auto"
+                id="top-gainers">
+                <thead>
+                    <tr>
+                        <th class="border border-slate-700 px-1 py-1 sm:px-3 sm:py-2">Company</th>
+                        <th class="hidden sm:block sm:border sm:border-slate-700  sm:px-3 sm:py-2">Previous&nbsp;Close
+                        </th>
+                        <th class="border border-slate-700 px-1 py-1 sm:px-3 sm:py-2">Current&nbsp;Price</th>
+                        <th
+                            class="border border-slate-700 px-1 py-1 sm:px-3 sm:py-2 flex flex-row justify-center items-center space-x-2">
+                            <div>Change&nbsp;(%)</div>
+                            <div class="animate-bounce">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20"
+                                    fill="#137333">
+                                    <path fill-rule="evenodd"
+                                        d="M4.293 15.707a1 1 0 010-1.414l5-5a1 1 0 011.414 0l5 5a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414 0zm0-6a1 1 0 010-1.414l5-5a1 1 0 011.414 0l5 5a1 1 0 01-1.414 1.414L10 5.414 5.707 9.707a1 1 0 01-1.414 0z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="top_perform_body">
+
+                </tbody>
+            </table>
+        </div>
+
+        <div id="worst-losers-tab" class="tabcontent border-t  border-t-[#4a4a4a]">
+            <table class="table-auto border-separate border border-slate-500 p-2 w-8/12 mx-auto" id="top-gainers">
+                <thead>
+                    <tr>
+                        <th class="border border-slate-700 px-1 py-1 sm:px-3 sm:py-2">Company</th>
+                        <th class="hidden sm:block sm:border sm:border-slate-700  sm:px-3 sm:py-2">Previous&nbsp;Close
+                        </th>
+                        <th class="border border-slate-700 px-1 py-1 sm:px-3 sm:py-2">Current&nbsp;Price</th>
+                        <th
+                            class="border border-slate-700 px-1 py-1 sm:px-3 sm:py-2 flex flex-row justify-center items-center space-x-2">
+                            <div>Change&nbsp;(%)</div>
+                            <div class="animate-bounce">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20"
+                                    fill="#a50e0e">
+                                    <path fill-rule="evenodd"
+                                        d="M15.707 4.293a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-5-5a1 1 0 011.414-1.414L10 8.586l4.293-4.293a1 1 0 011.414 0zm0 6a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-5-5a1 1 0 111.414-1.414L10 14.586l4.293-4.293a1 1 0 011.414 0z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="worst_losers">
+                    <tr>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="/static/auto.js"></script>
+    <script>
+        $(document).ready(function () {
+            if ($("#nifty_50_change").hasClass("bg-[#e6f4ea]")) {
+                $("#nifty_50_up_arrow").show();
+                $("#nifty_50_down_arrow").hide();
+            }
+            if ($("#nifty_50_change").hasClass("bg-[#fce8e6]")) {
+                $("#nifty_50_up_arrow").hide();
+                $("#nifty_50_down_arrow").show();
+            }
+            if ($("#nifty_it_change").hasClass("bg-[#e6f4ea]")) {
+                $("#nifty_it_up_arrow").show();
+                $("#nifty_it_down_arrow").hide();
+            }
+            if ($("#nifty_it_change").hasClass("bg-[#fce8e6]")) {
+                $("#nifty_it_up_arrow").hide();
+                $("#nifty_it_down_arrow").show();
+            }
+            if ($("#nifty_bank_change").hasClass("bg-[#e6f4ea]")) {
+                $("#nifty_bank_up_arrow").show();
+                $("#nifty_bank_down_arrow").hide();
+            }
+            if ($("#nifty_bank_change").hasClass("bg-[#fce8e6]")) {
+                $("#nifty_bank_up_arrow").hide();
+                $("#nifty_bank_down_arrow").show();
+            }
+            if ($("#nifty_auto_change").hasClass("bg-[#e6f4ea]")) {
+                $("#nifty_auto_up_arrow").show();
+                $("#nifty_auto_down_arrow").hide();
+            }
+            if ($("#nifty_auto_change").hasClass("bg-[#fce8e6]")) {
+                $("#nifty_auto_up_arrow").hide();
+                $("#nifty_auto_down_arrow").show();
+            }
+            if ($("#nifty_fmcg_change").hasClass("bg-[#e6f4ea]")) {
+                $("#nifty_fcmg_up_arrow").show();
+                $("#nifty_fcmg_down_arrow").hide();
+            }
+            if ($("#nifty_fmcg_change").hasClass("bg-[#fce8e6]")) {
+                $("#nifty_fcmg_up_arrow").hide();
+                $("#nifty_fcmg_down_arrow").show();
+            }
+
+
+            $("#top-gainers-btn").click(function () {
+                $("#top-gainers-btn").removeClass("hover:bg-green-500 hover:text-black");
+                $("#top-gainers-btn").addClass("text-[#137333] bg-[#e6f4ea] border-r border-r-[#4a4a4a] border-l border-l-[#4a4a4a] border-t border-t-[#4a4a4a]");
+                $("#worst-losers-btn").removeClass("text-[#a50e0e] bg-[#fce8e6] border-r border-r-[#4a4a4a] border-l border-l-[#4a4a4a] border-t border-t-[#4a4a4a]");
+                $("#worst-losers-btn").addClass("hover:bg-[#a50e0e] hover:text-black");
+                $("#top-gainers-tab").show();
+                $("#worst-losers-tab").hide();
+            });
+            $("#worst-losers-btn").click(function () {
+                $("#worst-losers-btn").removeClass("hover:bg-[#a50e0e] hover:text-black");
+                $("#worst-losers-btn").addClass("text-[#a50e0e] bg-[#fce8e6] border-r border-r-[#4a4a4a] border-l border-l-[#4a4a4a] border-t border-t-[#4a4a4a]");
+                $("#top-gainers-btn").removeClass("text-[#137333] bg-[#e6f4ea] border-r border-r-[#4a4a4a] border-l border-l-[#4a4a4a] border-t border-t-[#4a4a4a]");
+                $("#top-gainers-btn").addClass("hover:bg-green-500 hover:text-black");
+                $("#top-gainers-tab").hide();
+                $("#worst-losers-tab").show();
+            });
+            $("#top-gainers-btn").trigger("click");
+        });
+    </script>
+    <script>
+
+        let top_stocks = [{%for data in top_stocks %}'{{data}}', {% endfor %}];
+        let top_stocks_previous = [{%for data in top_previous %}'{{data}}', {% endfor %}];
+        let top_stocks_current = [{%for data in top_current %}'{{data}}', {% endfor %}];
+        let top_stocks_change = [{%for data in top_change %}'{{data}}', {% endfor %}];
+        top_performers = document.getElementById("top_perform_body").innerHTML;
+        if (top_stocks_previous.length > 10) {
+            length_stocks = 10;
+        }
+        else {
+            length_stocks = top_stocks_previous.length;
+        }
+
+        for (let i = 0; i < length_stocks; i++) {
+            top_performers = top_performers + '<tr><td class="border border-slate-500 px-1 py-1 sm:px-3 sm:py-2">' + top_stocks[i] + '</td><td class="hidden sm:block sm:border sm:border-slate-500 sm:px-3 sm:py-2">₹' + top_stocks_previous[i] + '</td><td class="border border-slate-500 px-1 py-1 sm:px-3 sm:py-2">₹' + top_stocks_current[i] + '</td><td class="border border-slate-500 px-1 py-1 sm:px-3 sm:py-2">' + top_stocks_change[i] + '</td></tr>';
+        }
+        document.getElementById("top_perform_body").innerHTML = top_performers;
+        worst_performers = document.getElementById("worst_losers").innerHTML;
+        let worst_stocks = [{%for data in worst_stocks %}'{{data}}', {% endfor %}];
+        let worst_stocks_previous = [{%for data in worst_previous %}'{{data}}', {% endfor %}];
+        let worst_stocks_current = [{%for data in worst_current %}'{{data}}', {% endfor %}];
+        let worst_stocks_change = [{%for data in worst_change %}'{{data}}', {% endfor %}];
+        if (worst_stocks_previous.length > 10) {
+            length_stocks = 10;
+        }
+        else {
+            length_stocks = worst_stocks_previous.length;
+        }
+
+        for (let i = 0; i < length_stocks; i++) {
+            worst_performers = worst_performers + '<tr><td class="border border-slate-500 px-1 py-1 sm:px-3 sm:py-2">' + worst_stocks[i] + '</td><td class="hidden sm:block sm:border sm:border-slate-500 sm:px-3 sm:py-2">₹' + worst_stocks_previous[i] + '</td><td class="border border-slate-500 px-1 py-1 sm:px-3 sm:py-2">₹' + worst_stocks_current[i] + '</td><td class="border border-slate-500 px-1 py-1 sm:px-3 sm:py-2">' + worst_stocks_change[i] + '</td></tr>';
+        }
+        document.getElementById("worst_losers").innerHTML = worst_performers;
+    </script>
+</body>
+<div class="footer bg-black text-center  text-white mt-3 py-5 px-1 w-full text-xl">
+    All rights reserved &copy; Stock-Info 2022
+</div>
+
+</html>

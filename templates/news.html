@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/index.ac0c7b2c.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Financial News</title>
+</head>
+
+<body>
+    <div class="bg-[#f8f8f8] pb-2">
+        <nav
+            class="navbar container mx-auto px-0.5 sm:px-1 py-2 flex flex-row justify-between items-center space-x-1 sm:space-x-2 md:space-x-5">
+            <div class="left flex-row flex space-x-2 items-center">
+                <div>
+                    <img src="/static/stock-market.d9663360.png" alt="" href="/"
+                        class="hidden md:block h-12 w-16 cursor-pointer">
+                </div>
+                <div class="text-sm sm:text-md md:text-lg lg:text-2xl hover:text-blue-700 cursor-pointer font-bold">
+                    <a href="/">Stock&nbsp;Info</a>
+                </div>
+            </div>
+            <div class="nav-center flex flex-row space-x-3 md:space-x-10 items-center">
+                <div class="text-sm sm:text-sm md:text-md lg:text-xl hover:text-blue-700 cursor-pointer font-semibold">
+                    <a href="/">Home</a>
+                </div>
+                <div>
+                    <span
+                        class="hidden md:block sm:text-sm md:text-md lg:text-xl hover:text-blue-700 cursor-pointer font-semibold"><a
+                            href="/nse">NSE&nbsp;Indices</a></span>
+                    <span class="md:hidden text-sm hover:text-blue-700 cursor-pointer font-semibold"><a
+                            href="/nse">Indices</a></span>
+                </div>
+                <div>
+                    <span
+                        class="hidden md:block sm:text-sm md:text-md lg:text-xl hover:text-blue-700 cursor-pointer font-semibold"><a
+                            href="/news">Financial&nbsp;News</a></span>
+                    <span class="md:hidden text-sm hover:text-blue-700 cursor-pointer font-semibold"><a
+                            href="/news">News</a></span>
+                </div>
+            </div>
+            <div class="hidden lg:block">
+                <form action="/" method="POST" autocomplete="off">
+                    {% csrf_token %}
+                    <div
+                        class="right flex flex-row bg-white pt-1 pb-1 pl-2 pr-2 space-x-2 border border-black rounded-lg autocomplete items-center">
+                        <input type="search" name="stock_symbol" id="myInput" placeholder="Search for Stocks"
+                            class="border-0 outline-none">
+                        <button type="submit"
+                            class="border border-white hover:border hover:border-white hover:bg-slate-800 hover:rounded-[50%] p-1 lg:p-2 hover:text-white duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </nav>
+        <div class="lg:hidden">
+            <form action="/" method="POST" autocomplete="off">
+                {% csrf_token %}
+                <div class="flex flex-row bg-white pt-1 pb-1 pl-2 pr-2 space-x-2 border border-black rounded-lg autocomplete items-center justify-between" style="padding-right: 15px;padding-left: 15px;margin-right:15px;margin-left:15px;">
+                    <input type="search" name="stock_symbol" id="myInput1" placeholder="Search for Stocks"
+                            class="border-0 outline-none">
+                        <button type="submit"
+                            class="border border-white hover:border hover:border-white hover:bg-slate-800 hover:rounded-[50%] p-1 lg:p-2 hover:text-white duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- End of Nav -->
+    <div class="financialnews container mx-auto my-5">
+        <div class="head text-2xl sm:text-4xl py-2 pb-10 px-1">
+            Today's Financial&nbsp;News
+        </div>
+        <div class="flex flex-row space-x-5 items-center px-1">
+            <button
+                class="item rounded-3xl  bg-slate-50 text-[#3c4043]  p-2 md:p-3 cursor-pointer border border-[#dadce0]"
+                id="headlines">Top Headlines</button>
+            <button
+                class="item rounded-3xl  bg-slate-50 text-[#3c4043]  p-2 md:p-3 cursor-pointer border border-[#dadce0]"
+                id="world-news">World News</button>
+        </div>
+        <!-- Indivual News Section -->
+        <div class="newssection my-5 news-animation py-3 space-y-5" id="headlines-tab">
+            <div
+                class="indiviualnews bg-[#f8f9fa] sm:grid sm:grid-cols-3 gap-6 md:gap-14 lg:gap-20 px-3 py-3 border-2 border-[#3c4043] rounded-lg lg:rounded-xl w-11/12 lg:w-9/12 mx-auto items-center">
+                <div class="item col-span-2 flex flex-col space-y-5">
+                    <div
+                        class="text0-md md:text-xl font-semibold hover:underline hover:underline-offset-2 cursor-pointer">
+                        <a href="{{local.url.0}}" target="_blank" rel="noopener noreferrer">{{local.title.0}}</a>
+                    </div>
+                    <div class="flex flex-col sm:flex-row sm:space-x-5 md:space-x-10 sm:items-center">
+                        <div
+                            class="text-base md:text-lg text-gray-600 cursor-pointer hover:underline hover:underline-offset-1">
+                            {{local.author_name.0}}
+                        </div>
+                        <div class="font-extralight md:text-md text-sm">
+                            {{local.time.0}}
+                        </div>
+                    </div>
+                </div>
+                <div class="item"><img src="{{local.img.0}}" alt=""
+                        class="hidden sm:block border rounded sm:h-44 sm:w-44 md:h-52 md:w-52 sm:border-2 sm:rounded-xl">
+                </div>
+            </div>
+            <!-- End of Indiviual News -->
+            <div
+                class="indiviualnews bg-[#f8f9fa] sm:grid sm:grid-cols-3 gap-6 md:gap-14 lg:gap-20 px-3 py-3 border-2 border-[#3c4043] rounded-lg lg:rounded-xl w-11/12 lg:w-9/12 mx-auto items-center">
+                <div class="item col-span-2 flex flex-col space-y-5">
+                    <div
+                        class="text0-md md:text-xl font-semibold hover:underline hover:underline-offset-2 cursor-pointer">
+                        <a href="{{local.url.1}}" target="_blank" rel="noopener noreferrer">{{local.title.1}}</a>
+
+                    </div>
+                    <div class="flex flex-col sm:flex-row sm:space-x-5 md:space-x-10 sm:items-center">
+                        <div
+                            class="text-base md:text-lg text-gray-600 cursor-pointer hover:underline hover:underline-offset-1">
+                            {{local.author_name.1}}
+                        </div>
+                        <div class="font-extralight md:text-md text-sm">
+                            {{local.time.1}}
+                        </div>
+                    </div>
+                </div>
+                <div class="item"><img src="{{local.img.1}}" alt=""
+                        class="hidden sm:block border rounded sm:h-44 sm:w-44 md:h-52 md:w-52 sm:border-2 sm:rounded-xl">
+                </div>
+            </div>
+            <!-- End of Indiviual News -->
+            <div
+                class="indiviualnews bg-[#f8f9fa] sm:grid sm:grid-cols-3 gap-6 md:gap-14 lg:gap-20 px-3 py-3 border-2 border-[#3c4043] rounded-lg lg:rounded-xl w-11/12 lg:w-9/12 mx-auto items-center">
+                <div class="item col-span-2 flex flex-col space-y-5">
+                    <div
+                        class="text0-md md:text-xl font-semibold hover:underline hover:underline-offset-2 cursor-pointer">
+                        <a href="{{local.url.2}}" target="_blank" rel="noopener noreferrer">{{local.title.2}}</a>
+
+                    </div>
+                    <div class="flex flex-col sm:flex-row sm:space-x-5 md:space-x-10 sm:items-center">
+                        <div
+                            class="text-base md:text-lg text-gray-600 cursor-pointer hover:underline hover:underline-offset-1">
+                            {{local.author_name.2}}
+                        </div>
+                        <div class="font-extralight md:text-md text-sm">
+                            {{local.time.2}}
+                        </div>
+                    </div>
+                </div>
+                <div class="item"><img src="{{local.img.2}}" alt=""
+                        class="hidden sm:block border rounded sm:h-44 sm:w-44 md:h-52 md:w-52 sm:border-2 sm:rounded-xl">
+                </div>
+            </div>
+            <!-- End of Indiviual News -->
+            <div
+                class="indiviualnews bg-[#f8f9fa] sm:grid sm:grid-cols-3 gap-6 md:gap-14 lg:gap-20 px-3 py-3 border-2 border-[#3c4043] rounded-lg lg:rounded-xl w-11/12 lg:w-9/12 mx-auto items-center">
+                <div class="item col-span-2 flex flex-col space-y-5">
+                    <div
+                        class="text0-md md:text-xl font-semibold hover:underline hover:underline-offset-2 cursor-pointer">
+                        <a href="{{local.url.3}}" target="_blank" rel="noopener noreferrer">{{local.title.3}}</a>
+
+                    </div>
+                    <div class="flex flex-col sm:flex-row sm:space-x-5 md:space-x-10 sm:items-center">
+                        <div
+                            class="text-base md:text-lg text-gray-600 cursor-pointer hover:underline hover:underline-offset-1">
+                            {{local.author_name.3}}
+                        </div>
+                        <div class="font-extralight md:text-md text-sm">
+                            {{local.time.3}}
+                        </div>
+                    </div>
+                </div>
+                <div class="item"><img src="{{local.img.3}}" alt=""
+                        class="hidden sm:block border rounded sm:h-44 sm:w-44 md:h-52 md:w-52 sm:border-2 sm:rounded-xl">
+                </div>
+            </div>
+            <!-- End of Indiviual News -->
+            <div
+                class="indiviualnews bg-[#f8f9fa] sm:grid sm:grid-cols-3 gap-6 md:gap-14 lg:gap-20 px-3 py-3 border-2 border-[#3c4043] rounded-lg lg:rounded-xl w-11/12 lg:w-9/12 mx-auto items-center">
+                <div class="item col-span-2 flex flex-col space-y-5">
+                    <div
+                        class="text0-md md:text-xl font-semibold hover:underline hover:underline-offset-2 cursor-pointer">
+                        <a href="{{local.url.4}}" target="_blank" rel="noopener noreferrer">{{local.title.4}}</a>
+
+                    </div>
+                    <div class="flex flex-col sm:flex-row sm:space-x-5 md:space-x-10 sm:items-center">
+                        <div
+                            class="text-base md:text-lg text-gray-600 cursor-pointer hover:underline hover:underline-offset-1">
+                            {{local.author_name.4}}
+                            <!-- {{world.us.title}} -->
+                        </div>
+                        <div class="font-extralight md:text-md text-sm">
+                            {{local.time.4}}
+                        </div>
+                    </div>
+                </div>
+                <div class="item"><img src="{{local.img.4}}" alt=""
+                        class="hidden sm:block border rounded sm:h-44 sm:w-44 md:h-52 md:w-52 sm:border-2 sm:rounded-xl">
+                </div>
+            </div>
+        </div>
+        <!-- End of Indiviual News -->
+        <!-- Second -->
+
+        <!-- End of Second -->
+
+        <!-- World News -->
+        <div class="newssection my-5 news-animation py-3 space-y-5" id="world-news-tab">
+            <div
+                class="indiviualnews bg-[#f8f9fa] sm:grid sm:grid-cols-3 gap-6 md:gap-14 lg:gap-20 px-3 py-3 border-2 border-[#3c4043] rounded-lg lg:rounded-xl w-11/12 lg:w-9/12 mx-auto items-center">
+                <div class="item col-span-2 flex flex-col space-y-5">
+                    <div
+                        class="text0-md md:text-xl font-semibold hover:underline hover:underline-offset-2 cursor-pointer">
+                        <a href="{{world.us.url}}" target="_blank" rel="noopener noreferrer">{{world.us.title}}</a>
+
+                    </div>
+                    <div class="flex flex-col sm:flex-row sm:space-x-5 md:space-x-10 sm:items-center">
+                        <div
+                            class="text-base md:text-lg text-gray-600 cursor-pointer hover:underline hover:underline-offset-1">
+                            {{world.us.author}}
+                        </div>
+                        <div class="font-extralight md:text-md text-sm">
+                            {{world.us.time}}
+                        </div>
+                    </div>
+                </div>
+                <div class="item"><img src="{{world.us.image}}" alt=""
+                        class="hidden sm:block border rounded sm:h-44 sm:w-44 md:h-52 md:w-52 sm:border-2 sm:rounded-xl">
+                </div>
+            </div>
+            <div
+                class="indiviualnews bg-[#f8f9fa] sm:grid sm:grid-cols-3 gap-6 md:gap-14 lg:gap-20 px-3 py-3 border-2 border-[#3c4043] rounded-lg lg:rounded-xl w-11/12 lg:w-9/12 mx-auto items-center">
+                <div class="item col-span-2 flex flex-col space-y-5">
+                    <div
+                        class="text0-md md:text-xl font-semibold hover:underline hover:underline-offset-2 cursor-pointer">
+                        <a href="{{world.au.url}}" target="_blank" rel="noopener noreferrer">{{world.au.title}}</a>
+
+                    </div>
+                    <div class="flex flex-col sm:flex-row sm:space-x-5 md:space-x-10 sm:items-center">
+                        <div
+                            class="text-base md:text-lg text-gray-600 cursor-pointer hover:underline hover:underline-offset-1">
+                            {{world.au.author}}
+                        </div>
+                        <div class="font-extralight md:text-md text-sm">
+                            {{world.au.time}}
+                        </div>
+                    </div>
+                </div>
+                <div class="item"><img src="{{world.au.image}}" alt=""
+                        class="hidden sm:block border rounded sm:h-44 sm:w-44 md:h-52 md:w-52 sm:border-2 sm:rounded-xl">
+                </div>
+            </div>
+            <div
+                class="indiviualnews bg-[#f8f9fa] sm:grid sm:grid-cols-3 gap-6 md:gap-14 lg:gap-20 px-3 py-3 border-2 border-[#3c4043] rounded-lg lg:rounded-xl w-11/12 lg:w-9/12 mx-auto items-center">
+                <div class="item col-span-2 flex flex-col space-y-5">
+                    <div
+                        class="text0-md md:text-xl font-semibold hover:underline hover:underline-offset-2 cursor-pointer">
+                        <a href="{{world.ca.url}}" target="_blank" rel="noopener noreferrer">{{world.ca.title}}</a>
+
+                    </div>
+                    <div class="flex flex-col sm:flex-row sm:space-x-5 md:space-x-10 sm:items-center">
+                        <div
+                            class="text-base md:text-lg text-gray-600 cursor-pointer hover:underline hover:underline-offset-1">
+                            {{world.ca.author}}
+                        </div>
+                        <div class="font-extralight md:text-md text-sm">
+                            {{world.ca.time}}
+                        </div>
+                    </div>
+                </div>
+                <div class="item"><img src="{{world.ca.image}}" alt=""
+                        class="hidden sm:block border rounded sm:h-44 sm:w-44 md:h-52 md:w-52 sm:border-2 sm:rounded-xl">
+                </div>
+            </div>
+            <div
+                class="indiviualnews bg-[#f8f9fa] sm:grid sm:grid-cols-3 gap-6 md:gap-14 lg:gap-20 px-3 py-3 border-2 border-[#3c4043] rounded-lg lg:rounded-xl w-11/12 lg:w-9/12 mx-auto items-center">
+                <div class="item col-span-2 flex flex-col space-y-5">
+                    <div
+                        class="text0-md md:text-xl font-semibold hover:underline hover:underline-offset-2 cursor-pointer">
+                        <a href="{{world.nz.url}}" target="_blank" rel="noopener noreferrer">{{world.nz.title}}</a>
+
+                    </div>
+                    <div class="flex flex-col sm:flex-row sm:space-x-5 md:space-x-10 sm:items-center">
+                        <div
+                            class="text-base md:text-lg text-gray-600 cursor-pointer hover:underline hover:underline-offset-1">
+                            {{world.nz.author}}
+                        </div>
+                        <div class="font-extralight md:text-md text-sm">
+                            {{world.nz.time}}
+                        </div>
+                    </div>
+                </div>
+                <div class="item"><img src="{{world.nz.image}}" alt=""
+                        class="hidden sm:block border rounded sm:h-44 sm:w-44 md:h-52 md:w-52 sm:border-2 sm:rounded-xl">
+                </div>
+            </div>
+            <div
+                class="indiviualnews bg-[#f8f9fa] sm:grid sm:grid-cols-3 gap-6 md:gap-14 lg:gap-20 px-3 py-3 border-2 border-[#3c4043] rounded-lg lg:rounded-xl w-11/12 lg:w-9/12 mx-auto items-center">
+                <div class="item col-span-2 flex flex-col space-y-5">
+                    <div
+                        class="text0-md md:text-xl font-semibold hover:underline hover:underline-offset-2 cursor-pointer">
+                        <a href="{{world.gb.url}}" target="_blank" rel="noopener noreferrer">{{world.gb.title}}</a>
+
+                    </div>
+                    <div class="flex flex-col sm:flex-row sm:space-x-5 md:space-x-10 sm:items-center">
+                        <div
+                            class="text-base md:text-lg text-gray-600 cursor-pointer hover:underline hover:underline-offset-1">
+                            {{world.gb.author}}
+                        </div>
+                        <div class="font-extralight md:text-md text-sm">
+                            {{world.gb.time}}
+                        </div>
+                    </div>
+                </div>
+                <div class="item"><img src="{{world.gb.image}}" alt=""
+                        class="hidden sm:block border rounded sm:h-44 sm:w-44 md:h-52 md:w-52 sm:border-2 sm:rounded-xl">
+                </div>
+            </div>
+            <div
+                class="indiviualnews bg-[#f8f9fa] sm:grid sm:grid-cols-3 gap-6 md:gap-14 lg:gap-20 px-3 py-3 border-2 border-[#3c4043] rounded-lg lg:rounded-xl w-11/12 lg:w-9/12 mx-auto items-center">
+                <div class="item col-span-2 flex flex-col space-y-5">
+                    <div
+                        class="text0-md md:text-xl font-semibold hover:underline hover:underline-offset-2 cursor-pointer">
+                        <a href="{{world.sg.url}}" target="_blank" rel="noopener noreferrer">{{world.sg.title}}</a>
+
+                    </div>
+                    <div class="flex flex-col sm:flex-row sm:space-x-5 md:space-x-10 sm:items-center">
+                        <div
+                            class="text-base md:text-lg text-gray-600 cursor-pointer hover:underline hover:underline-offset-1">
+                            {{world.sg.author}}
+                        </div>
+                        <div class="font-extralight md:text-md text-sm">
+                            {{world.sg.time}}
+                        </div>
+                    </div>
+                </div>
+                <div class="item"><img src="{{world.sg.image}}" alt=""
+                        class="hidden sm:block border rounded sm:h-44 sm:w-44 md:h-52 md:w-52 sm:border-2 sm:rounded-xl">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/static/auto.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#headlines").click(function () {
+                $("#headlines").removeClass("bg-slate-50 text-[#3c4043]");
+                $("#headlines").addClass("text-[#538AE4] bg-[#538ae4] bg-opacity-10");
+                $("#world-news").removeClass("text-[#538AE4] bg-[#538ae4] bg-opacity-10");
+                $("#headlines-tab").show();
+                $("#world-news-tab").hide();
+            });
+            $("#world-news").click(function () {
+                $("#world-news").removeClass("bg-slate-50 text-[#3c4043]");
+                $("#world-news").addClass("text-[#538AE4] bg-[#538ae4] bg-opacity-10");
+                $("#headlines").removeClass("text-[#538AE4] bg-[#538ae4] bg-opacity-10");
+                $("#headlines-tab").hide();
+                $("#world-news-tab").show();
+            });
+            $("#headlines").trigger("click");
+        });
+    </script>
+</body>
+<div class="footer bg-black text-center  text-white mt-3 py-5 px-1 w-full text-xl">
+    All rights reserved &copy; Stock-Info 2022
+</div>
+
+</html>

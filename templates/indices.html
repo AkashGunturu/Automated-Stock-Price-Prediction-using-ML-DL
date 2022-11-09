@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/index.ac0c7b2c.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/static/style.css">
+    <title>{{details.name}}</title>
+</head>
+
+<body>
+    <div class="bg-[#f8f8f8] pb-2">
+        <nav
+            class="navbar container mx-auto px-0.5 sm:px-1 py-2 flex flex-row justify-between items-center space-x-1 sm:space-x-2 md:space-x-5">
+            <div class="left flex-row flex space-x-2 items-center">
+                <div>
+                    <img src="/static/stock-market.d9663360.png" alt="" href="/"
+                        class="hidden md:block h-12 w-16 cursor-pointer">
+                </div>
+                <div class="text-sm sm:text-md md:text-lg lg:text-2xl hover:text-blue-700 cursor-pointer font-bold">
+                    <a href="/">Stock&nbsp;Info</a>
+                </div>
+            </div>
+            <div class="nav-center flex flex-row space-x-3 md:space-x-10 items-center">
+                <div class="text-sm sm:text-sm md:text-md lg:text-xl hover:text-blue-700 cursor-pointer font-semibold">
+                    <a href="/">Home</a>
+                </div>
+                <div>
+                    <span
+                        class="hidden md:block sm:text-sm md:text-md lg:text-xl hover:text-blue-700 cursor-pointer font-semibold"><a
+                            href="/nse">NSE&nbsp;Indices</a></span>
+                    <span class="md:hidden text-sm hover:text-blue-700 cursor-pointer font-semibold"><a
+                            href="/nse">Indices</a></span>
+                </div>
+                <div>
+                    <span
+                        class="hidden md:block sm:text-sm md:text-md lg:text-xl hover:text-blue-700 cursor-pointer font-semibold"><a
+                            href="/news">Financial&nbsp;News</a></span>
+                    <span class="md:hidden text-sm hover:text-blue-700 cursor-pointer font-semibold"><a
+                            href="/news">News</a></span>
+                </div>
+            </div>
+            <div class="hidden lg:block">
+                <form action="/" method="POST" autocomplete="off">
+                    {% csrf_token %}
+                    <div
+                        class="right flex flex-row bg-white pt-1 pb-1 pl-2 pr-2 space-x-2 border border-black rounded-lg autocomplete items-center">
+                        <input type="search" name="stock_symbol" id="myInput" placeholder="Search for Stocks"
+                            class="border-0 outline-none">
+                        <button type="submit"
+                            class="border border-white hover:border hover:border-white hover:bg-slate-800 hover:rounded-[50%] p-1 lg:p-2 hover:text-white duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </nav>
+        <div class="lg:hidden">
+            <form action="/" method="POST" autocomplete="off">
+                {% csrf_token %}
+                <div class="flex flex-row bg-white pt-1 pb-1 pl-2 pr-2 space-x-2 border border-black rounded-lg autocomplete items-center justify-between" style="padding-right: 15px;padding-left: 15px;margin-right:15px;margin-left:15px;">
+                    <input type="search" name="stock_symbol" id="myInput1" placeholder="Search for Stocks"
+                            class="border-0 outline-none">
+                        <button type="submit"
+                            class="border border-white hover:border hover:border-white hover:bg-slate-800 hover:rounded-[50%] p-1 lg:p-2 hover:text-white duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- End of Nav -->
+    <div class="my-10 container mx-auto">
+        <div class="flex flex-col space-y-3 py-1 border-b border-[#b1b3b5] px-1">
+            <div class="text-4xl">
+                {{details.name}}
+            </div>
+            <div class="flex flex-row">
+                <div class="text-lg">
+                    NSE&nbsp;&#183;&nbsp;INDEX
+                </div>
+            </div>
+        </div>
+        <div class="grid grid-rows-2 lg:grid-rows-none lg:grid-cols-3 gap-4 md:gap-10 my-3 py-2 px-1">
+            <div class="md:col-span-2">
+                <div class="flex flex-col py-1 px-2 space-y-3">
+                    <div class="price text-5xl">
+                        {{details.current}}
+                    </div>
+                    <div class="change">
+                        <div class="flex flex-row justify-start px-1 py-1 items-center space-x-5">
+                            <div class="sm:text-lg lg:text-xl xl:text-2xl bg-[{{details.background}}] rounded-lg p-1 text-[{{details.text}}] flex flex-row space-x-1 items-center" id="index_change">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="currentfill" viewBox="0 0 24 24" stroke="currentColor" height="24px" width="24px" id="up">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7l4-4m0 0l4 4m-4-4v18" />
+                                  </svg>
+                                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentfill" viewBox="0 0 24 24" stroke="currentColor" height="24px" width="24px" id="down">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 17l-4 4m0 0l-4-4m4 4V3" />
+                                  </svg>
+                                {{details.per_change}}
+                            </div>
+                            <div class="sm:text-lg lg:text-xl xl:text-2xl rounded-lg  text-[{{details.text}}]">
+                                {{details.change}}&nbsp;Today
+                            </div>
+                        </div>
+                    </div>
+                    <div class="updation flex flex-row space-x-2 text-lg">
+                        <div class="date">{{details.date}}</div>
+                        <div class="">{{details.time}} IST</div>
+                    </div>
+                </div>
+                <div class="container hidden lg:block">
+                    <canvas id="myChart" width="400" height="200"></canvas>  
+                </div>
+                <div class="container lg:hidden">
+                    <canvas id="myChart2" width="150" height="100"></canvas>  
+                </div>
+            </div>
+            <div class="p-2">
+                <div class="item border-2 border-[#b1b3b5] rounded-lg flex flex-col space-y-3 border-opacity-75">
+                    <div class="text-2xl font-medium border-b border-b-[#b1b3b5] p-1 py-2">Index Details</div>
+                    <div class="fitem flex flex- justify-between border-b border-b-[#b1b3b5] items-center space-x-3">
+                        <div class="text-lg px-2 text-[#3c4043] font-semibold">PREVIOUS&nbsp;CLOSE</div>
+                        <div class="text-md px-2">₹&nbsp;{{index_details.close}}</div>
+                    </div>
+                    <div class="fitem flex flex- justify-between border-b border-b-[#b1b3b5] items-center space-x-3">
+                        <div class="text-lg px-2 text-[#3c4043] font-semibold">DAY&nbsp;RANGE</div>
+                        <div class="text-md px-2">₹&nbsp;{{index_details.low}} - ₹&nbsp;{{index_details.high}}</div>
+                    </div>
+                    <div class="fitem flex flex- justify-between items-center space-x-3">
+                        <div class="text-lg px-2 text-[#3c4043] font-semibold">YEAR&nbsp;RANGE</div>
+                        <div class="text-md px-2">₹&nbsp;{{index_details.52low}} - ₹&nbsp;{{index_details.52high}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/static/auto.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+    <script>
+        if ($( "#index_change" ).hasClass("bg-[#e6f4ea]")){
+                            $("#up").show();
+                            $("#down").hide();
+                        }
+                        if ($( "#index_change" ).hasClass("bg-[#fce8e6]")){
+                            $("#up").hide();
+                            $("#down").show();
+                        }
+        
+        
+        var ctx = document.getElementById('myChart').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: [{%for data in timestamp%}'{{data}}',{%endfor%}],
+                        datasets: [{
+                            label: 'Stock Price',
+                            data: [{%for data in points%}{{data}},{%endfor%}],
+                            backgroundColor: [
+                                '{{chart.background}}', 
+                            ],
+                            borderColor: [
+                            '{{chart.border}}',
+                            ],
+                            borderWidth: 1,
+        
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                
+                            }
+                        },
+                        responsive:true,
+                        maintainAspectRatio:true,
+                        aspectRatio:1.5,
+                        
+                    }
+        });
+        var ctx = document.getElementById('myChart2').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: [{%for data in timestamp_small%}'{{data}}',{%endfor%}],
+                        datasets: [{
+                            label: 'Stock Price',
+                            data: [{%for data in points_small%}{{data}},{%endfor%}],
+                            backgroundColor: [
+                                '{{chart.background}}', 
+                            ],
+                            borderColor: [
+                            '{{chart.border}}',
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                
+                            }
+                        },
+                        responsive:true,
+                        maintainAspectRatio:true,
+                        aspectRatio:1.5,
+                        bezierCurve : false,
+                    }
+        });
+        </script>
+</body>
+<div class="footer bg-black text-center  text-white mt-3 py-5 px-1 w-full text-xl">
+    All rights reserved &copy; Stock-Info 2022
+</div>
+</html>

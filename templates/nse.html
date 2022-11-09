@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/index.ac0c7b2c.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/static/style.css">
+    <title>NSE Indices</title>
+</head>
+
+<body>
+    <div class="bg-[#f8f8f8] pb-2">
+        <nav
+            class="navbar container mx-auto px-0.5 sm:px-1 py-2 flex flex-row justify-between items-center space-x-1 sm:space-x-2 md:space-x-5">
+            <div class="left flex-row flex space-x-2 items-center">
+                <div>
+                    <img src="/static/stock-market.d9663360.png" alt="" href="/"
+                        class="hidden md:block h-12 w-16 cursor-pointer">
+                </div>
+                <div class="text-sm sm:text-md md:text-lg lg:text-2xl hover:text-blue-700 cursor-pointer font-bold">
+                    <a href="/">Stock&nbsp;Info</a>
+                </div>
+            </div>
+            <div class="nav-center flex flex-row space-x-3 md:space-x-10 items-center">
+                <div class="text-sm sm:text-sm md:text-md lg:text-xl hover:text-blue-700 cursor-pointer font-semibold">
+                    <a href="/">Home</a>
+                </div>
+                <div>
+                    <span
+                        class="hidden md:block sm:text-sm md:text-md lg:text-xl hover:text-blue-700 cursor-pointer font-semibold"><a
+                            href="/nse">NSE&nbsp;Indices</a></span>
+                    <span class="md:hidden text-sm hover:text-blue-700 cursor-pointer font-semibold"><a
+                            href="/nse">Indices</a></span>
+                </div>
+                <div>
+                    <span
+                        class="hidden md:block sm:text-sm md:text-md lg:text-xl hover:text-blue-700 cursor-pointer font-semibold"><a
+                            href="/news">Financial&nbsp;News</a></span>
+                    <span class="md:hidden text-sm hover:text-blue-700 cursor-pointer font-semibold"><a
+                            href="/news">News</a></span>
+                </div>
+            </div>
+            <div class="hidden lg:block">
+                <form action="/" method="POST" autocomplete="off">
+                    {% csrf_token %}
+                    <div
+                        class="right flex flex-row bg-white pt-1 pb-1 pl-2 pr-2 space-x-2 border border-black rounded-lg autocomplete items-center">
+                        <input type="search" name="stock_symbol" id="myInput" placeholder="Search for Stocks"
+                            class="border-0 outline-none">
+                        <button type="submit"
+                            class="border border-white hover:border hover:border-white hover:bg-slate-800 hover:rounded-[50%] p-1 lg:p-2 hover:text-white duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </nav>
+        <div class="lg:hidden">
+            <form action="/" method="POST" autocomplete="off">
+                {% csrf_token %}
+                <div class="flex flex-row bg-white pt-1 pb-1 pl-2 pr-2 space-x-2 border border-black rounded-lg autocomplete items-center justify-between" style="padding-right: 15px;padding-left: 15px;margin-right:15px;margin-left:15px;">
+                    <input type="search" name="stock_symbol" id="myInput1" placeholder="Search for Stocks"
+                            class="border-0 outline-none">
+                        <button type="submit"
+                            class="border border-white hover:border hover:border-white hover:bg-slate-800 hover:rounded-[50%] p-1 lg:p-2 hover:text-white duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- End of Nav -->
+    <div class="container mx-auto w-9/12 my-10">
+        <div class="head text-4xl font-semibold">
+            <span class="bg-[#f8f9fa] p-2 rounded-md text-cyan-900">NSE Indices</span>
+        </div>
+            <table class="table-auto border-separate border border-slate-500 p-2 w-9/12 sm:w-10/12 my-10 mx-auto" id="index_table">
+                <thead>
+                    <tr>
+                        <th class="border border-slate-700 px-1 py-1 sm:px-3 sm:py-2">Index Name</th>
+                        <th class="hidden sm:block sm:border sm:border-slate-700 px-1 py-1  sm:px-3 sm:py-2">Previous Close</th>
+                        <th class="border border-slate-700 px-1 py-1 sm:px-3 sm:py-2">Current</th>
+                        <th class="hidden sm:block sm:border sm:border-slate-700  px-1 py-1 sm:px-3 sm:py-2">Change&nbsp;(pts)</th>
+                        <th class="border border-slate-700 px-1 py-1 sm:px-3 sm:py-2">Change&nbsp;(%)</th>
+                    </tr>
+                </thead>
+                <tbody id="index_table_body">
+                    <tr>
+                        <td class="border border-slate-500 px-1 py-1 sm:px-3 sm:py-2 hover:underline hover:underline-offset-2 text-cyan-900 font-bold"><a href="/indices/NIFTY 50">{{index_name.0}}</a></td>
+                        <td class="hidden sm:block sm:border sm:border-slate-500 px-1 py-1 sm:px-3 sm:py-2">{{previous_close.0}}</td>
+                        <td class="border border-slate-500 px-1 py-1 sm:px-3 sm:py-2">{{current.0}}</td>
+                        <td class="hidden sm:block sm:border sm:border-slate-500 px-1 py-1 sm:px-3 sm:py-2">{{change.0}}</td>
+                        <td class="border border-slate-500 px-1 py-1 sm:px-3 sm:py-2">{{per_change.0}}</td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+    <script src="/static/auto.js"></script>
+    <script>
+        var index_name=[{%for data in index_name%}'{{data}}',{%endfor%}]
+        var previous=[{%for data in previous_close%}'{{data}}',{%endfor%}]
+        var current=[{%for data in current%}'{{data}}',{%endfor%}]
+        var change=[{%for data in change%}'{{data}}',{%endfor%}]
+        var per_change=[{%for data in per_change%}'{{data}}',{%endfor%}]
+        text=document.getElementById("index_table_body").innerHTML;
+        for(let i=1;i<index_name.length;i++){
+            let link=index_name[i].replaceAll(" ","%20")
+            text=text+'<tr><td class="border border-slate-500 px-1 py-1 sm:px-3 sm:py-2 hover:underline hover:underline-offset-2 text-cyan-900 font-bold">'+'<a href=/indices/'+link+'>'+index_name[i]+'</a></td><td class="hidden sm:block sm:border sm:border-slate-500 px-1 py-1 sm:px-3 sm:py-2">'+previous[i]+'</td><td class="border border-slate-500 px-1 py-1 sm:px-3 sm:py-2">'+current[i]+'</td><td class="hidden sm:block sm:border sm:border-slate-500 px-1 py-1 sm:px-3 sm:py-2">'+change[i]+'</td><td class="border border-slate-500 px-1 py-1 sm:px-3 sm:py-2">'+per_change[i]+'</td><tr>'
+        }
+
+        document.getElementById("index_table_body").innerHTML=text;
+        
+    </script>
+</body>
+<div class="footer bg-black text-center  text-white mt-3 py-5 px-1 w-full text-xl">
+    All rights reserved &copy; Stock-Info 2022
+</div>
+</html>

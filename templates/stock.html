@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/static/index.ac0c7b2c.css">
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>{{data.symbol}}</title>
+</head>
+
+<body>
+    <div class="bg-[#f8f8f8] pb-2">
+        <nav
+            class="navbar container mx-auto px-0.5 sm:px-1 py-2 flex flex-row justify-between items-center space-x-1 sm:space-x-2 md:space-x-5">
+            <div class="left flex-row flex space-x-2 items-center">
+                <div>
+                    <img src="/static/stock-market.d9663360.png" alt="" href="/"
+                        class="hidden md:block h-12 w-16 cursor-pointer">
+                </div>
+                <div class="text-sm sm:text-md md:text-lg lg:text-2xl hover:text-blue-700 cursor-pointer font-bold">
+                    <a href="/">Stock&nbsp;Info</a>
+                </div>
+            </div>
+            <div class="nav-center flex flex-row space-x-3 md:space-x-10 items-center">
+                <div class="text-sm sm:text-sm md:text-md lg:text-xl hover:text-blue-700 cursor-pointer font-semibold">
+                    <a href="/">Home</a>
+                </div>
+                <div>
+                    <span
+                        class="hidden md:block sm:text-sm md:text-md lg:text-xl hover:text-blue-700 cursor-pointer font-semibold"><a
+                            href="/nse">NSE&nbsp;Indices</a></span>
+                    <span class="md:hidden text-sm hover:text-blue-700 cursor-pointer font-semibold"><a
+                            href="/nse">Indices</a></span>
+                </div>
+                <div>
+                    <span
+                        class="hidden md:block sm:text-sm md:text-md lg:text-xl hover:text-blue-700 cursor-pointer font-semibold"><a
+                            href="/news">Financial&nbsp;News</a></span>
+                    <span class="md:hidden text-sm hover:text-blue-700 cursor-pointer font-semibold"><a
+                            href="/news">News</a></span>
+                </div>
+            </div>
+            <div class="hidden lg:block">
+                <form action="/" method="POST" autocomplete="off">
+                    {% csrf_token %}
+                    <div
+                        class="right flex flex-row bg-white pt-1 pb-1 pl-2 pr-2 space-x-2 border border-black rounded-lg autocomplete items-center">
+                        <input type="search" name="stock_symbol" id="myInput" placeholder="Search for Stocks"
+                            class="border-0 outline-none">
+                        <button type="submit"
+                            class="border border-white hover:border hover:border-white hover:bg-slate-800 hover:rounded-[50%] p-1 lg:p-2 hover:text-white duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </nav>
+        <div class="lg:hidden">
+            <form action="/" method="POST" autocomplete="off">
+                {% csrf_token %}
+                <div class="flex flex-row bg-white pt-1 pb-1 pl-2 pr-2 space-x-2 border border-black rounded-lg autocomplete items-center justify-between"
+                    style="padding-right: 15px;padding-left: 15px;margin-right:15px;margin-left:15px;">
+                    <input type="search" name="stock_symbol" id="myInput1" placeholder="Search for Stocks"
+                        class="border-0 outline-none">
+                    <button type="submit"
+                        class="border border-white hover:border hover:border-white hover:bg-slate-800 hover:rounded-[50%] p-1 lg:p-2 hover:text-white duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- End of Nav -->
+    <!-- End of Nav -->
+    <div class="container my-10 mx-auto w-full sm:w-11/12">
+        <div class="flex flex-col space-y-3 py-1 border-b border-[#b1b3b5] px-1">
+            <div class="text-4xl">
+                {{data.name}}
+            </div>
+            <div class="flex flex-row">
+                <div class="text-lg">
+                    {{data.symbol}}&nbsp;&#183;&nbsp;NSE-{{data.series}}
+                </div>
+            </div>
+        </div>
+        <div class="grid grid-rows-2 lg:grid-rows-none lg:grid-cols-3 gap-4 md:gap-10 my-3 py-2 px-1">
+            <div class="md:col-span-2">
+                <div class="flex flex-col py-1 px-3 space-y-3">
+                    <div class="price text-5xl">
+                        {{stock.price}}
+                    </div>
+                    <div class="change">
+                        <div class="flex flex-row justify-start px-1 py-1 items-center space-x-5">
+                            <div class="sm:text-lg lg:text-xl xl:text-2xl bg-[{{stock.background}}] rounded-lg p-1 text-[{{stock.text}}] flex flex-row space-x-1 items-center"
+                                id="stock_change">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="currentfill"
+                                    viewBox="0 0 24 24" stroke="currentColor" height="24px" width="24px" id="up">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M8 7l4-4m0 0l4 4m-4-4v18" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentfill"
+                                    viewBox="0 0 24 24" stroke="currentColor" height="24px" width="24px" id="down">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M16 17l-4 4m0 0l-4-4m4 4V3" />
+                                </svg>
+                                {{stock.per_change}}%
+                            </div>
+                            <div class="sm:text-lg lg:text-xl xl:text-2xl rounded-lg  text-[{{stock.text}}]">
+                                {{stock.change}}&nbsp;Today
+                            </div>
+                        </div>
+                    </div>
+                    <div class="updation flex flex-row space-x-2 text-lg">
+                        <div class="date">
+                            {{stock.date}}</div>
+                        <div class="">{{stock.time}} IST</div>
+                    </div>
+                </div>
+                <div class="container hidden lg:block">
+                    <canvas id="myChart" width="400" height="200"></canvas>
+                </div>
+                <div class="container lg:hidden">
+                    <canvas id="myChart2" width="150" height="100"></canvas>
+                </div>
+
+            </div>
+            <div class="p-2">
+                <div
+                    class="flex flex-col sm:flex-row lg:flex-col px-2 space-y-2 sm:space-y-2 sm:space-x-10 lg:space-x-0 lg:space-y-10">
+                    <div>
+                        <div
+                            class="item border-2 border-[#b1b3b5] rounded-lg flex flex-col space-y-3 border-opacity-75">
+                            <div class="text-2xl font-medium border-b border-b-[#b1b3b5] p-1 py-2">Financial Details
+                            </div>
+                            <div
+                                class="fitem flex flex- justify-between border-b border-b-[#b1b3b5] items-center space-x-3">
+                                <div class="text-lg px-2 text-[#3c4043] font-semibold">PREVIOUS&nbsp;CLOSE</div>
+                                <div class="text-md px-2">₹&nbsp;{{stock.close}}</div>
+                            </div>
+                            <div
+                                class="fitem flex flex- justify-between border-b border-b-[#b1b3b5] items-center space-x-3">
+                                <div class="text-lg px-2 text-[#3c4043] font-semibold">AVERAGE&nbsp;PRICE</div>
+                                <div class="text-md px-2">₹&nbsp;{{stock.average}}</div>
+                            </div>
+                            <div
+                                class="fitem flex flex- justify-between border-b border-b-[#b1b3b5] items-center space-x-3">
+                                <div class="text-lg px-2 text-[#3c4043] font-semibold">DAY&nbsp;RANGE</div>
+                                <div class="text-md px-2">₹&nbsp;{{stock.low}}&nbsp;-&nbsp;₹&nbsp;{{stock.high}}</div>
+                            </div>
+                            <div
+                                class="fitem flex flex- justify-between border-b border-b-[#b1b3b5] items-center space-x-3">
+                                <div class="text-lg px-2 text-[#3c4043] font-semibold">YEAR&nbsp;RANGE</div>
+                                <div class="text-md px-2">₹&nbsp;{{stock.52low}}&nbsp;-&nbsp;₹&nbsp;{{stock.52high}}
+                                </div>
+                            </div>
+                            <div
+                                class="fitem flex flex- justify-between border-b border-b-[#b1b3b5] items-center space-x-3">
+                                <div class="text-lg px-2 text-[#3c4043] font-semibold">TRADED&nbsp;VALUE</div>
+                                <div class="text-md px-2">₹&nbsp;{{stock.traded}}</div>
+                            </div>
+                            <div
+                                class="fitem flex flex- justify-between border-b border-b-[#b1b3b5] items-center space-x-3">
+                                <div class="text-lg px-2 text-[#3c4043] font-semibold">PE&nbsp;RATIO</div>
+                                <div class="text-md px-2">{{stock.pe}}&nbsp;</div>
+                            </div>
+                            <div class="fitem flex flex- justify-between items-center">
+                                <div class="text-lg px-2 text-[#3c4043] font-semibold">DIVIDEND/SHARE</div>
+                                <div class="text-md px-2">₹&nbsp;{{stock.dividend}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div
+                            class="item border-2 border-[#b1b3b5] rounded-lg flex flex-col space-y-3 border-opacity-75">
+                            <div class="text-2xl font-medium border-b border-b-[#b1b3b5] p-1 py-2">About</div>
+                            <div
+                                class="fitem flex flex- justify-between border-b border-b-[#b1b3b5] items-center space-x-3">
+                                <div class="text-lg px-2 text-[#3c4043] font-semibold">DATE&nbsp;OF&nbsp;LISTING</div>
+                                <div class="text-md px-2">{{data.date}}</div>
+                            </div>
+                            <div
+                                class="fitem flex flex- justify-between border-b border-b-[#b1b3b5] items-center space-x-3">
+                                <div class="text-lg px-2 text-[#3c4043] font-semibold">ISIN&nbsp;Number</div>
+                                <div class="text-md px-2">{{data.isin}}</div>
+                            </div>
+                            <div class="fitem flex flex- justify-between items-center">
+                                <div class="text-lg px-2 text-[#3c4043] font-semibold">LISTED&nbsp;EXCHANGE</div>
+                                <div class="text-md px-2">NSE</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ML Section -->
+        <div class="flex flex-col space-y-3 py-1 border-b border-[#b1b3b5] px-1">
+            <div class="text-4xl">
+                Smart-Stock Price Predictor
+            </div>
+            
+        </div>
+
+
+
+        <div class="bg-white grid grid-cols-3 pt-10 gap-x-10">
+            <div class="col-span-2">
+                <div class="container hidden lg:block w-full">
+                    <canvas id="myChart3" width="400" height="200"></canvas>
+                </div>
+            </div>
+            <div class="flex flex-col col-span-1 mt-10">
+                <div class="item border-2 border-[#b1b3b5] rounded-lg flex flex-col space-y-3 border-opacity-75">
+                    <div class="text-2xl font-medium border-b border-b-[#b1b3b5] p-1 py-2">ML Results</div>
+                    <div class="fitem flex flex- justify-between border-b border-b-[#b1b3b5] items-center space-x-3">
+                        <div class="text-lg px-2 text-[#3c4043] font-semibold">ML Model(Accuracy)</div>
+                        <div class="text-md px-2">Predicted Closing Price</div>
+                    </div>
+                    <div class="fitem flex flex- justify-between border-b border-b-[#b1b3b5] items-center space-x-3">
+                        <div class="text-lg px-2 text-[#3c4043] font-semibold">Linear Regression ({{linear_regression_accu}})</div>
+                        <div class="text-md px-2">{{linear_regression_price}}</div>
+                    </div>
+                    <div class="fitem flex flex- justify-between border-b border-b-[#b1b3b5] items-center space-x-3">
+                        <div class="text-lg px-2 text-[#3c4043] font-semibold">SVM ({{svm_accu}})</div>
+                        <div class="text-md px-2">{{svm_price}}</div>
+                    </div>
+                    <div class="fitem flex flex- justify-between border-b border-b-[#b1b3b5] items-center space-x-3">
+                        <div class="text-lg px-2 text-[#3c4043] font-semibold">Random Forest ({{random_forest_accu}})</div>
+                        <div class="text-md px-2">{{random_forest_price}}</div>
+                    </div>
+                    <div class="fitem flex flex- justify-between border-b border-b-[#b1b3b5] items-center space-x-3">
+                        <div class="text-lg px-2 text-[#3c4043] font-semibold">LSTM ({{lstm_accu}})</div>
+                        <div class="text-md px-2">{{lstm_price}}</div>
+                    </div>
+                    <div class="fitem flex flex- justify-between border-b border-b-[#b1b3b5] items-center space-x-3">
+                        <div class="text-lg px-2 text-[#3c4043] font-semibold">KNN ({{knn_accu}})</div>
+                        <div class="text-md px-2">{{knn_price}}</div>
+                    </div>
+                    <div class="fitem flex flex- justify-between border-b border-b-[#b1b3b5] items-center space-x-3">
+                        <div class="text-lg px-2 text-[#3c4043] font-semibold">Prophet ({{prophet_accu}})</div>
+                        <div class="text-md px-2">{{prophet_price}}</div>
+                    </div>
+                    <div class="fitem flex flex- justify-between border-b border-b-[#b1b3b5] items-center space-x-3">
+                        <div class="text-lg px-2 text-[#3c4043] font-semibold">Auto Arima ({{autoarima_accu}})</div>
+                        <div class="text-md px-2">{{autoarima_accu}}</div>
+                    </div>
+                    <div class="fitem flex flex- justify-between border-b border-b-[#b1b3b5] items-center space-x-3">
+                        <div class="text-lg px-2 text-[#3c4043] font-semibold">New ML Model ({{new_model_accu}})</div>
+                        <div class="text-md px-2">{{new_model_price}}</div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <script src="/static/auto.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+    <script>
+        if ($("#stock_change").hasClass("bg-[#e6f4ea]")) {
+            $("#up").show();
+            $("#down").hide();
+        }
+        if ($("#stock_change").hasClass("bg-[#fce8e6]")) {
+            $("#up").hide();
+            $("#down").show();
+        }
+
+
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [{%for data in timestamp %}'{{data}}',{% endfor %}],
+        datasets: [{
+            label: 'Stock Price',
+            data: [{%for data in points %}{{ data }}, {% endfor %}],
+            backgroundColor: [
+                '{{chart.background}}',
+            ],
+                borderColor: [
+                    '{{chart.border}}',
+                ],
+                    borderWidth: 1,
+                    pointRadius: 0,
+
+                }]
+            },
+        options: {
+            scales: {
+                y: {
+
+                }
+            },
+            responsive: true,
+                maintainAspectRatio: true,
+                    aspectRatio: 1.5,
+                
+            }
+});
+        var ctx = document.getElementById('myChart2').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [{%for data in timestamp_small %}'{{data}}',{% endfor %}],
+        datasets: [{
+            label: 'Stock Price',
+            data: [{%for data in points_small %}{{ data }}, {% endfor %}],
+            backgroundColor: [
+                '{{chart.background}}',
+            ],
+                borderColor: [
+                    '{{chart.border}}',
+                ],
+                    borderWidth: 1,
+                    pointRadius: 0,
+                }]
+            },
+        options: {
+            scales: {
+                y: {
+
+                }
+            },
+            responsive: true,
+                maintainAspectRatio: true,
+                    aspectRatio: 1.5,
+                        bezierCurve : false,
+            }
+});
+        var ctx = document.getElementById('myChart3').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [{%for data in linear_regression_data %}" ", {% endfor %}],
+        datasets: [
+        {
+            label: 'Linear Regression',
+            data: [{%for data in linear_regression_data %}{{ data }}, {% endfor %}],
+            backgroundColor: [
+                '#f8f9fa00',
+            ],
+                borderColor: [
+                    '#0B84A5',
+                ],
+                    borderWidth: 2,
+                    tension: 0.1,
+                    pointRadius: 0,
+                },
+        {
+            label: 'Random Forest',
+            data: [{%for data in random_forest_data %}{{ data }}, {% endfor %}],
+            backgroundColor: [
+                '#f8f9fa00',
+            ],
+                borderColor: [
+                    '#6F4E7C',
+                ],
+                    borderWidth: 2,
+                    tension: 0.1,
+                    pointRadius: 0,
+                },
+        {
+            label: 'SVM',
+            data: [{%for data in svm_data %}{{ data }}, {% endfor %}],
+            backgroundColor: [
+                '#f8f9fa00',
+            ],
+                borderColor: [
+                    '#bc5090',
+                ],
+                    borderWidth: 2,
+                    tension: 0.1,
+                    pointRadius: 0,
+                },
+        {
+            label: 'New ML Model',
+            data: [{%for data in new_model_data %}{{ data }}, {% endfor %}],
+            backgroundColor: [
+                '#f8f9fa00',
+            ],
+                borderColor: [
+                    '#CA472F',
+                ],
+                    borderWidth: 2,
+                    tension: 0.1,
+                    pointRadius: 0,
+                },
+        {
+            label: 'LSTM',
+            data: [{%for data in lstm_data %}{{ data }}, {% endfor %}],
+            backgroundColor: [
+                '#f8f9fa00',
+            ],
+                borderColor: [
+                    '#014D30',
+                ],
+                    borderWidth: 2,
+                    tension: 0.1,
+                    pointRadius: 0,
+                },
+                
+        {
+            label: 'KNN',
+            data: [{%for data in knn_data %}{{ data }}, {% endfor %}],
+            backgroundColor: [
+                '#f8f9fa00',
+            ],
+                borderColor: [
+                    '#242440',
+                ],
+                    borderWidth: 2,
+                    tension: 0.1,
+                    pointRadius: 0,
+                },
+        {
+            label: 'Prophet',
+            data: [{%for data in prophet_data %}{{ data }}, {% endfor %}],
+            backgroundColor: [
+                '#f8f9fa00',
+            ],
+                borderColor: [
+                    '#D3014C',
+                ],
+                    borderWidth: 2,
+                    tension: 0.1,
+                    pointRadius: 0,
+                },
+                
+            ]
+            },
+        options: {
+            scales: {
+                y: {
+
+                }
+            },
+            responsive: true,
+                maintainAspectRatio: true,
+                    aspectRatio: 1.5,
+                        bezierCurve : false,
+            }
+});
+    </script>
+
+</body>
+<div class="footer bg-black text-center  text-white mt-3 py-5 px-1 w-full text-xl">
+    All rights reserved &copy; Stock-Info 2022
+</div>
+
+</html>
+{% comment %} #CA472F {% endcomment %}
